@@ -1,17 +1,20 @@
 from __future__ import annotations
 
+import logging
+
 # Alembic environment configuration runner.
 # Coordinates database migrations in both offline and online execution modes.
 import logging.config
-import logging
+
 import alembic.context
+from alembic.runtime.migration import MigrationContext
 from open_webui.env import DATABASE_PASSWORD, DATABASE_SCHEMA, DATABASE_URL, LOG_FORMAT
 from open_webui.internal.db import enable_iam_token_auth, extract_ssl_params_from_url, reattach_ssl_params_to_url
 from open_webui.models.auths import Auth
 from open_webui.models.calendar import Calendar, CalendarEvent, CalendarEventAttendee  # noqa: F401
 from open_webui.models.chat_messages import ChatMessage  # noqa: F401
 from open_webui.models.chats import Chat  # noqa: F401
-from sqlalchemy import create_engine, engine_from_config, pool
+from sqlalchemy import create_engine, engine_from_config, inspect, pool
 
 alembic_config = alembic.context.config
 if alembic_config.config_file_name:
@@ -28,11 +31,6 @@ if ssl_query_params:
     target_db_url = reattach_ssl_params_to_url(base_url, ssl_query_params)
 if target_db_url:
     alembic_config.set_main_option('sqlalchemy.url', target_db_url.replace('%', '%%'))
-
-
-def _quote_identifier(identifier: str) -> str:
-    """Quote a PostgreSQL identifier for statements that cannot bind identifiers."""
-    return '"' + identifier.replace('"', '""') + '"'
 
 
 def run_migrations_offline() -> None:
@@ -79,21 +77,28 @@ def run_migrations_online() -> None:
     live_connectable = _get_engine_connectable()
     enable_iam_token_auth(live_connectable)
     with live_connectable.connect() as live_connection:
-        if DATABASE_SCHEMA:
-            from sqlalchemy import text
+        if DATABASE_SCHEMA and live_connection.dialect.name == 'postgresql':
+            inspector = inspect(live_connection)
+            if not inspector.has_schema(DATABASE_SCHEMA):
+                raise RuntimeError(f'DATABASE_SCHEMA={DATABASE_SCHEMA!r} does not exist.')
 
-            schema_exists = live_connection.execute(
-                text('SELECT 1 FROM information_schema.schemata WHERE schema_name = :schema_name'),
-                {'schema_name': DATABASE_SCHEMA},
-            ).scalar()
-            if not schema_exists:
+            tables = inspector.get_table_names(schema=DATABASE_SCHEMA)
+            revisions = MigrationContext.configure(
+                live_connection, opts={'version_table_schema': DATABASE_SCHEMA}
+            ).get_current_heads()
+            # Do not replay migrations or hide an existing installation's history.
+            if not revisions and (
+                tables or set(inspector.get_table_names()) & {'alembic_version', 'auth', 'chat', 'config'}
+            ):
                 raise RuntimeError(
-                    f'DATABASE_SCHEMA "{DATABASE_SCHEMA}" does not exist. '
-                    'Create it before running OpenWebUI migrations.'
+                    f'Cannot migrate DATABASE_SCHEMA={DATABASE_SCHEMA!r}: existing tables or migration '
+                    'history were found, but this schema has no recorded revision. '
+                    'Check DATABASE_SCHEMA and keep the application tables and alembic_version together '
+                    'before restarting.'
                 )
-            live_connection.execute(text(f'SET search_path TO {_quote_identifier(DATABASE_SCHEMA)}'))
-            # SQLAlchemy 2.x starts a transaction for the schema preflight above.
-            # Commit it so Alembic owns the migration transaction and persists DDL.
+
+            schema = live_connection.dialect.identifier_preparer.quote_identifier(DATABASE_SCHEMA)
+            live_connection.exec_driver_sql(f'SET search_path TO {schema}')
             live_connection.commit()
             live_connection.dialect.default_schema_name = DATABASE_SCHEMA
         alembic.context.configure(
