@@ -3557,7 +3557,6 @@
 	"Sign in": "Connexion",
 	"Sign in again": "",
 	"Sign in again before changing your authenticator settings.": "",
-	"Sign in to {{WEBUI_NAME}}": "Connectez-vous à {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Connectez-vous à {{WEBUI_NAME}} avec LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Déconnexion",

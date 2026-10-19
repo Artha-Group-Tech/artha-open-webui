@@ -3538,7 +3538,6 @@
 	"Sign in": "Daxil ol",
 	"Sign in again": "Yenidən daxil ol",
 	"Sign in again before changing your authenticator settings.": "Autentifikator ayarlarınızı dəyişməzdən əvvəl yenidən daxil olun.",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}} platformasına daxil olun",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "LDAP ilə {{WEBUI_NAME}} platformasına daxil olun",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Çıxış et",

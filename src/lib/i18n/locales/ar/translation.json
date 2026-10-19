@@ -3614,7 +3614,6 @@
 	"Sign in": "تسجيل الدخول",
 	"Sign in again": "تسجيل الدخول مرة أخرى",
 	"Sign in again before changing your authenticator settings.": "سجّل الدخول مرة أخرى قبل تغيير إعدادات تطبيق المصادقة.",
-	"Sign in to {{WEBUI_NAME}}": "سجّل الدخول إلى {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "سجّل الدخول إلى {{WEBUI_NAME}} باستخدام LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "تسجيل الخروج",

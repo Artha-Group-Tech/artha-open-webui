@@ -3521,7 +3521,6 @@
 	"Sign in": "로그인",
 	"Sign in again": "다시 로그인",
 	"Sign in again before changing your authenticator settings.": "인증 앱 설정을 변경하기 전에 다시 로그인하세요.",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}} 로그인",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "LDAP로 {{WEBUI_NAME}}에 로그인",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "로그아웃",

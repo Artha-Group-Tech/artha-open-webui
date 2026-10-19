@@ -3538,7 +3538,6 @@
 	"Sign in": "كىرىش",
 	"Sign in again": "قايتا كىرىش",
 	"Sign in again before changing your authenticator settings.": "دەلىللىگۈچ تەڭشەكلىرىڭىزنى ئۆزگەرتىشتىن بۇرۇن قايتا كىرىڭ.",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}} غا كىرىش",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "LDAP ئارقىلىق {{WEBUI_NAME}} غا كىرىش",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "چىقىش",

@@ -3538,7 +3538,6 @@
 	"Sign in": "Bejelentkezés",
 	"Sign in again": "Újbóli bejelentkezés",
 	"Sign in again before changing your authenticator settings.": "A hitelesítő alkalmazás beállításainak módosítása előtt jelentkezz be újra.",
-	"Sign in to {{WEBUI_NAME}}": "Bejelentkezés ide: {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Bejelentkezés ide: {{WEBUI_NAME}} LDAP-val",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Kijelentkezés",

@@ -3532,7 +3532,6 @@
 	"Sign in": "登录",
 	"Sign in again": "重新登录",
 	"Sign in again before changing your authenticator settings.": "更改验证器设置前请重新登录。",
-	"Sign in to {{WEBUI_NAME}}": "登录 {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "使用 LDAP 登录 {{WEBUI_NAME}}",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "登出",

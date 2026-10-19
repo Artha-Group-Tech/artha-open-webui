@@ -3519,7 +3519,6 @@
 	"Sign in": "Đăng nhập",
 	"Sign in again": "Đăng nhập lại",
 	"Sign in again before changing your authenticator settings.": "Đăng nhập lại trước khi thay đổi cài đặt ứng dụng xác thực của bạn.",
-	"Sign in to {{WEBUI_NAME}}": "Đăng nhập vào {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Đăng nhập vào {{WEBUI_NAME}} bằng LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Đăng xuất",

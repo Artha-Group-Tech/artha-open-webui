@@ -3576,7 +3576,6 @@
 	"Sign in": "Zaloguj się",
 	"Sign in again": "Zaloguj się ponownie",
 	"Sign in again before changing your authenticator settings.": "Zaloguj się ponownie przed zmianą ustawień aplikacji uwierzytelniającej.",
-	"Sign in to {{WEBUI_NAME}}": "Zaloguj się do {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Zaloguj się do {{WEBUI_NAME}} przez LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Wyloguj",

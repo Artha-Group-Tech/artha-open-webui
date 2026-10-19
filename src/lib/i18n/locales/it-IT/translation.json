@@ -3557,7 +3557,6 @@
 	"Sign in": "Accedi",
 	"Sign in again": "Accedi di nuovo",
 	"Sign in again before changing your authenticator settings.": "Accedi di nuovo prima di modificare le impostazioni dell'autenticatore.",
-	"Sign in to {{WEBUI_NAME}}": "Accedi a {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Accedi a {{WEBUI_NAME}} con LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Esci",

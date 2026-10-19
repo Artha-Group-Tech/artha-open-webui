@@ -3538,7 +3538,6 @@
 	"Sign in": "Anmelden",
 	"Sign in again": "Erneut anmelden",
 	"Sign in again before changing your authenticator settings.": "Melden Sie sich erneut an, bevor Sie Ihre Authenticator-Einstellungen ändern.",
-	"Sign in to {{WEBUI_NAME}}": "Bei {{WEBUI_NAME}} anmelden",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Bei {{WEBUI_NAME}} mit LDAP anmelden",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Abmelden",

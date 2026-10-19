@@ -3538,7 +3538,6 @@
 	"Sign in": "Kirjaudu sisään",
 	"Sign in again": "Kirjaudu uudelleen",
 	"Sign in again before changing your authenticator settings.": "Kirjaudu uudelleen ennen kuin muutat todennussovelluksen asetuksia.",
-	"Sign in to {{WEBUI_NAME}}": "Kirjaudu sisään palveluun {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Kirjaudu sisään palveluun {{WEBUI_NAME}} LDAP:lla",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Kirjaudu ulos",

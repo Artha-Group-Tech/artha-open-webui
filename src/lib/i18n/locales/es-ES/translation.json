@@ -3557,7 +3557,6 @@
 	"Sign in": "Iniciar Sesión",
 	"Sign in again": "Volver a iniciar sesión",
 	"Sign in again before changing your authenticator settings.": "Vuelve a iniciar sesión antes de cambiar la configuración de tu autenticador.",
-	"Sign in to {{WEBUI_NAME}}": "Iniciar Sesión en {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Iniciar Sesión en {{WEBUI_NAME}} con LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Cerrar Sesión",

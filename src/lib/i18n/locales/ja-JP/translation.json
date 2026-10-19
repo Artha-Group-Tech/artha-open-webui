@@ -3535,7 +3535,6 @@
 	"Sign in": "サインイン",
 	"Sign in again": "再度サインイン",
 	"Sign in again before changing your authenticator settings.": "認証アプリの設定を変更する前に、再度サインインしてください。",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}}にサインイン",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "{{WEBUI_NAME}}にLDAPでサインイン",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "サインアウト",

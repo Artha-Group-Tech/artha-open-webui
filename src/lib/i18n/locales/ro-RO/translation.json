@@ -3557,7 +3557,6 @@
 	"Sign in": "Autentificare",
 	"Sign in again": "Autentifică-te din nou",
 	"Sign in again before changing your authenticator settings.": "Autentificați-vă din nou înainte de a modifica setările aplicației de autentificare.",
-	"Sign in to {{WEBUI_NAME}}": "Conectează-te la {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Conectează-te la {{WEBUI_NAME}} cu LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Deconectare",

@@ -3538,7 +3538,6 @@
 	"Sign in": "Sínigh isteach",
 	"Sign in again": "Sínigh isteach arís",
 	"Sign in again before changing your authenticator settings.": "Sínigh isteach arís sula n-athraíonn tú socruithe d'fhíordheimhneora.",
-	"Sign in to {{WEBUI_NAME}}": "Sínigh isteach ar {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Sínigh isteach ar {{WEBUI_NAME}} le LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Sínigh Amach",

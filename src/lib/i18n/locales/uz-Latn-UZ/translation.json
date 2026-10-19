@@ -3538,7 +3538,6 @@
 	"Sign in": "tizimga kirish",
 	"Sign in again": "",
 	"Sign in again before changing your authenticator settings.": "",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}} hisobiga kiring",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "LDAP yordamida {{WEBUI_NAME}} saytiga kiring",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Tizimdan chiqish",

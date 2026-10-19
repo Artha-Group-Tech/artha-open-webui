@@ -3576,7 +3576,6 @@
 	"Sign in": "Prihlásiť sa",
 	"Sign in again": "Prihlásiť sa znova",
 	"Sign in again before changing your authenticator settings.": "Pred zmenou nastavení autentifikátora sa znova prihláste.",
-	"Sign in to {{WEBUI_NAME}}": "Prihlásiť sa do {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Prihlásiť sa do {{WEBUI_NAME}} cez LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Odhlásiť sa",

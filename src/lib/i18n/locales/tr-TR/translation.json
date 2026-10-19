@@ -3538,7 +3538,6 @@
 	"Sign in": "Oturum aç",
 	"Sign in again": "Tekrar oturum aç",
 	"Sign in again before changing your authenticator settings.": "Kimlik doğrulayıcı ayarlarınızı değiştirmeden önce tekrar oturum açın.",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}}'e giriş yap",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "LDAP ile {{WEBUI_NAME}}'e giriş yap",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Çıkış Yap",

@@ -3538,7 +3538,6 @@
 	"Sign in": "உள்நுழை",
 	"Sign in again": "மீண்டும் உள்நுழையவும்",
 	"Sign in again before changing your authenticator settings.": "உங்கள் அங்கீகரிப்புச் செயலி அமைப்புகளை மாற்றுவதற்கு முன் மீண்டும் உள்நுழையவும்.",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}} இல் உள்நுழையவும்",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "{{WEBUI_NAME}} இல் LDAP உடன் உள்நுழையவும்",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "வெளியேறு",

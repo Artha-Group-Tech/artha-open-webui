@@ -3557,7 +3557,6 @@
 	"Sign in": "הירשם",
 	"Sign in again": "התחבר שוב",
 	"Sign in again before changing your authenticator settings.": "התחבר שוב לפני שינוי הגדרות אפליקציית האימות.",
-	"Sign in to {{WEBUI_NAME}}": "התחברות ל-{{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "התחברות ל-{{WEBUI_NAME}} באמצעות LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "התנתקות",

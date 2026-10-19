@@ -3576,7 +3576,6 @@
 	"Sign in": "Увійти",
 	"Sign in again": "Увійти знову",
 	"Sign in again before changing your authenticator settings.": "Увійдіть знову, перш ніж змінювати налаштування аутентифікатора.",
-	"Sign in to {{WEBUI_NAME}}": "Увійти в {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Увійти до {{WEBUI_NAME}} за допомогою LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Вийти",

@@ -3538,7 +3538,6 @@
 	"Sign in": "سائن ان کریں",
 	"Sign in again": "دوبارہ سائن ان کریں",
 	"Sign in again before changing your authenticator settings.": "اپنی آتھنٹیکیٹر ایپ کی ترتیبات تبدیل کرنے سے پہلے دوبارہ سائن ان کریں۔",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}} میں سائن ان کریں",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "LDAP کے ساتھ {{WEBUI_NAME}} میں سائن ان کریں",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "سائن آؤٹ کریں",

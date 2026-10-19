@@ -3557,7 +3557,6 @@
 	"Sign in": "Пријави се",
 	"Sign in again": "Пријави се поново",
 	"Sign in again before changing your authenticator settings.": "Поново се пријавите пре него што промените подешавања аутентификатора.",
-	"Sign in to {{WEBUI_NAME}}": "Пријавите се на {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Пријавите се на {{WEBUI_NAME}} преко LDAP-а",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Одјави се",

@@ -3538,7 +3538,6 @@
 	"Sign in": "Rita inn",
 	"Sign in again": "Rita inn aftur",
 	"Sign in again before changing your authenticator settings.": "Rita inn aftur, áðrenn tú broytir stillingarnar fyri váttanarappina hjá tær.",
-	"Sign in to {{WEBUI_NAME}}": "Rita inn á {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Rita inn á {{WEBUI_NAME}} við LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Rita út",

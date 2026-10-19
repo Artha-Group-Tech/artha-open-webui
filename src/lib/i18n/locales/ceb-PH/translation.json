@@ -3538,7 +3538,6 @@
 	"Sign in": "Para maka log in",
 	"Sign in again": "Pagsulod pag-usab",
 	"Sign in again before changing your authenticator settings.": "Pagsulod pag-usab sa dili pa usbon ang mga setting sa imong app sa pagpamatuod.",
-	"Sign in to {{WEBUI_NAME}}": "Sulod sa {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Sulod sa {{WEBUI_NAME}} gamit ang LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Pag-sign out",

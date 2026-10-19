@@ -3538,7 +3538,6 @@
 	"Sign in": "ورود",
 	"Sign in again": "ورود مجدد",
 	"Sign in again before changing your authenticator settings.": "پیش از تغییر تنظیمات برنامه احراز هویت خود، دوباره وارد شوید.",
-	"Sign in to {{WEBUI_NAME}}": "ورود به {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "ورود به {{WEBUI_NAME}} با LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "خروج",

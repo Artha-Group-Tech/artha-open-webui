@@ -3519,7 +3519,6 @@
 	"Sign in": "ลงชื่อเข้าใช้",
 	"Sign in again": "ลงชื่อเข้าใช้อีกครั้ง",
 	"Sign in again before changing your authenticator settings.": "ลงชื่อเข้าใช้อีกครั้งก่อนเปลี่ยนการตั้งค่าแอปยืนยันตัวตนของคุณ",
-	"Sign in to {{WEBUI_NAME}}": "ลงชื่อเข้าใช้ {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "ลงชื่อเข้าใช้ {{WEBUI_NAME}} ด้วย LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "ลงชื่อออก",

@@ -3557,7 +3557,6 @@
 	"Sign in": "Pieteikties",
 	"Sign in again": "Pieteikties vēlreiz",
 	"Sign in again before changing your authenticator settings.": "Pirms autentifikatora iestatījumu maiņas piesakieties vēlreiz.",
-	"Sign in to {{WEBUI_NAME}}": "Pieteikties {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Pieteikties {{WEBUI_NAME}} ar LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Izrakstīties",

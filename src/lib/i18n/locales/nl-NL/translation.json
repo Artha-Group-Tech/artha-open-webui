@@ -3538,7 +3538,6 @@
 	"Sign in": "Inloggen",
 	"Sign in again": "Opnieuw inloggen",
 	"Sign in again before changing your authenticator settings.": "Log opnieuw in voordat je je authenticatorinstellingen wijzigt.",
-	"Sign in to {{WEBUI_NAME}}": "Log in bij {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Log in bij {{WEBUI_NAME}} met LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Uitloggen",

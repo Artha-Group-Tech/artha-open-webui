@@ -3538,7 +3538,6 @@
 	"Sign in": "Σύνδεση",
 	"Sign in again": "Συνδεθείτε ξανά",
 	"Sign in again before changing your authenticator settings.": "Συνδεθείτε ξανά πριν αλλάξετε τις ρυθμίσεις της εφαρμογής ταυτοποίησης.",
-	"Sign in to {{WEBUI_NAME}}": "Σύνδεση στο {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Σύνδεση στο {{WEBUI_NAME}} με LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Αποσύνδεση",

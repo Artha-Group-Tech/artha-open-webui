@@ -3535,7 +3535,6 @@
 	"Sign in": "Login",
 	"Sign in again": "Login semula",
 	"Sign in again before changing your authenticator settings.": "Login semula sebelum menukar tetapan aplikasi pengesah anda.",
-	"Sign in to {{WEBUI_NAME}}": "Login ke {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Login ke {{WEBUI_NAME}} dengan LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Log Keluar",

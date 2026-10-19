@@ -3576,7 +3576,6 @@
 	"Sign in": "Prisijungti",
 	"Sign in again": "Prisijungti iš naujo",
 	"Sign in again before changing your authenticator settings.": "Prieš keisdami autentifikavimo programėlės nustatymus, prisijunkite iš naujo.",
-	"Sign in to {{WEBUI_NAME}}": "Prisijungti prie {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Prisijungti prie {{WEBUI_NAME}} per LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Atsijungti",

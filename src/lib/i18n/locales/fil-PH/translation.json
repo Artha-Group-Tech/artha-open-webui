@@ -3540,7 +3540,6 @@
 	"Sign in": "Mag-sign in",
 	"Sign in again": "Mag-sign in muli",
 	"Sign in again before changing your authenticator settings.": "Mag-sign in muli bago baguhin ang mga setting ng iyong authenticator app.",
-	"Sign in to {{WEBUI_NAME}}": "Mag-sign in sa {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Mag-sign in sa {{WEBUI_NAME}} gamit ang LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Mag-sign out",

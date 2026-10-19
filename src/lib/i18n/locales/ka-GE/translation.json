@@ -3538,7 +3538,6 @@
 	"Sign in": "შესვლა",
 	"Sign in again": "თავიდან შესვლა",
 	"Sign in again before changing your authenticator settings.": "თქვენი ავთენტიკატორის პარამეტრების შეცვლამდე თავიდან შედით.",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}}-ში შესვლა",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "{{WEBUI_NAME}}-ში შესვლა LDAP-ით",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "გასვლა",

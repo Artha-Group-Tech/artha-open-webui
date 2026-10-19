@@ -3538,7 +3538,6 @@
 	"Sign in": "Hasi saioa",
 	"Sign in again": "Hasi saioa berriro",
 	"Sign in again before changing your authenticator settings.": "Hasi saioa berriro zure autentifikatzailearen ezarpenak aldatu aurretik.",
-	"Sign in to {{WEBUI_NAME}}": "Hasi saioa {{WEBUI_NAME}}-n",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Hasi saioa {{WEBUI_NAME}}-n LDAP bidez",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Amaitu saioa",

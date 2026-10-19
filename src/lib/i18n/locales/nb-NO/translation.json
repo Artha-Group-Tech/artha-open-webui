@@ -3538,7 +3538,6 @@
 	"Sign in": "Logg inn",
 	"Sign in again": "Logg på igjen",
 	"Sign in again before changing your authenticator settings.": "Logg på igjen før du endrer innstillingene for autentiseringsappen.",
-	"Sign in to {{WEBUI_NAME}}": "Logg på {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Logg på {{WEBUI_NAME}} med LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Logg ut",

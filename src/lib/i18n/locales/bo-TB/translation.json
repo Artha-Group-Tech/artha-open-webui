@@ -3519,7 +3519,6 @@
 	"Sign in": "ནང་འཛུལ།",
 	"Sign in again": "ཡང་བསྐྱར་ནང་འཛུལ།",
 	"Sign in again before changing your authenticator settings.": "ཁྱེད་ཀྱི་དངོས་ར་སྤྲོད་ཉེར་སྤྱོད་ཀྱི་སྒྲིག་འགོད་མ་བསྒྱུར་གོང་ཡང་བསྐྱར་ནང་འཛུལ་བྱོས།",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}} ལ་ནང་འཛུལ།",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "LDAP དང་མཉམ་དུ་ {{WEBUI_NAME}} ལ་ནང་འཛུལ།",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "ཕྱིར་ཐོན།",

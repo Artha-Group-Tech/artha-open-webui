@@ -3538,7 +3538,6 @@
 	"Sign in": "Вписване",
 	"Sign in again": "Влезте отново",
 	"Sign in again before changing your authenticator settings.": "Влезте отново, преди да промените настройките на приложението за удостоверяване.",
-	"Sign in to {{WEBUI_NAME}}": "Впишете се в {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Впишете се в {{WEBUI_NAME}} с LDAP",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Изход",

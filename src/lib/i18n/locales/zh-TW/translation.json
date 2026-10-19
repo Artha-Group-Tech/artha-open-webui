@@ -3519,7 +3519,6 @@
 	"Sign in": "登入",
 	"Sign in again": "重新登入",
 	"Sign in again before changing your authenticator settings.": "變更驗證器設定前請重新登入。",
-	"Sign in to {{WEBUI_NAME}}": "登入 {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "以 LDAP 登入 {{WEBUI_NAME}}",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "登出",

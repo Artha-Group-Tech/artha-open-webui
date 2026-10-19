@@ -3538,7 +3538,6 @@
 	"Sign in": "সাইন ইন",
 	"Sign in again": "আবার সাইন ইন করুন",
 	"Sign in again before changing your authenticator settings.": "অথেনটিকেটরের সেটিংস বদলানোর আগে আবার সাইন ইন করুন।",
-	"Sign in to {{WEBUI_NAME}}": "{{WEBUI_NAME}}-এ সাইন ইন করুন",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "LDAP দিয়ে {{WEBUI_NAME}}-এ সাইন ইন করুন",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "সাইন আউট",

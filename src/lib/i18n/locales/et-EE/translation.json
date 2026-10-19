@@ -3538,7 +3538,6 @@
 	"Sign in": "Logi sisse",
 	"Sign in again": "Logi uuesti sisse",
 	"Sign in again before changing your authenticator settings.": "Enne autentimisrakenduse seadete muutmist logige uuesti sisse.",
-	"Sign in to {{WEBUI_NAME}}": "Logi sisse rakendusse {{WEBUI_NAME}}",
 	"Sign in to {{WEBUI_NAME}} with LDAP": "Logi sisse rakendusse {{WEBUI_NAME}} LDAP-ga",
 	"Sign in to start using Chewie": "",
 	"Sign Out": "Logi välja",
