@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+html[data-artha-appearance] {
+	--app-font-family: 'DM Sans';
+	--artha-bg: #faf8fc;
+	--artha-card: #ffffff;
+	--artha-text: #33283f;
+	--artha-muted: #74677e;
+	--artha-border: #e6e0ed;
+	--artha-primary: #613f88;
+	--artha-soft: #f1ebf7;
+	--artha-on-primary: #ffffff;
+	--color-gray-50: #faf8fc;
+	--color-gray-100: #f1ebf7;
+	--color-gray-200: #e6e0ed;
+	--color-gray-300: #c9bdd6;
+	--color-gray-400: #95849f;
+	--color-gray-500: #74677e;
+	--color-gray-600: #61546b;
+	--color-gray-700: #4c3d58;
+	--color-gray-800: #403047;
+	--color-gray-850: #392c42;
+	--color-gray-900: #33283f;
+	--color-gray-950: #201729;
+	font-family: 'DM Sans', sans-serif;
+}
+html[data-artha-appearance='light'] {
+	--artha-bg: #fafcfb;
+	--artha-text: #243c35;
+	--artha-muted: #64756e;
+	--artha-border: #dce6e0;
+	--artha-primary: #226c5b;
+	--artha-soft: #edf6f0;
+	--color-gray-50: #fafcfb;
+	--color-gray-100: #edf6f0;
+	--color-gray-200: #dce6e0;
+	--color-gray-500: #64756e;
+	--color-gray-900: #243c35;
+}
+html[data-artha-appearance='deep-purple'] {
+	--artha-bg: #151226;
+	--artha-card: #221b32;
+	--artha-text: #faf3e5;
+	--artha-muted: #bfb4ce;
+	--artha-border: #3d304f;
+	--artha-primary: #c9a245;
+	--artha-soft: #2d2340;
+	--artha-on-primary: #211b13;
+	--color-gray-50: #faf3e5;
+	--color-gray-100: #eee6f5;
+	--color-gray-200: #d5c9e1;
+	--color-gray-300: #bfb4ce;
+	--color-gray-400: #ac9dbb;
+	--color-gray-500: #93829f;
+	--color-gray-600: #786787;
+	--color-gray-700: #493957;
+	--color-gray-800: #2d2340;
+	--color-gray-850: #261d36;
+	--color-gray-900: #221b32;
+	--color-gray-950: #151226;
+}
+html[data-artha-appearance='graphite'] {
+	--artha-bg: #0a0a0a;
+	--artha-card: #161616;
+	--artha-text: #f5f5f5;
+	--artha-muted: #a3a3a3;
+	--artha-border: #2a2a2a;
+	--artha-primary: #e4e4e7;
+	--artha-soft: #262626;
+	--artha-on-primary: #171717;
+	--color-gray-50: #fafafa;
+	--color-gray-100: #f5f5f5;
+	--color-gray-200: #e5e5e5;
+	--color-gray-300: #d4d4d4;
+	--color-gray-400: #a3a3a3;
+	--color-gray-500: #737373;
+	--color-gray-600: #525252;
+	--color-gray-700: #404040;
+	--color-gray-800: #262626;
+	--color-gray-850: #202020;
+	--color-gray-900: #161616;
+	--color-gray-950: #0a0a0a;
+}
+html[data-artha-appearance] body {
+	color: var(--artha-text);
+	background: var(--artha-bg);
+}
+html[data-artha-appearance] :is(h1, h2, h3) {
+	font-family: 'Manrope', sans-serif;
+	letter-spacing: -0.02em;
+}
+html[data-artha-appearance] :is(button, input, select, textarea) {
+	font-family: inherit;
+}
+html[data-artha-appearance] :is(input, textarea, select) {
+	border-color: var(--artha-border);
+	accent-color: var(--artha-primary);
+}
+html[data-artha-appearance] :is(button, a, input, textarea, select):focus-visible {
+	outline: 2px solid var(--artha-primary);
+	outline-offset: 3px;
+}
+html[data-artha-appearance] :is(.app, #chat-container, #auth-login-card) {
+	color: var(--artha-text);
+}
+html[data-artha-appearance] #auth-login-card {
+	background: var(--artha-card);
+	border: 1px solid var(--artha-border);
+	border-radius: 12px;
+	padding: 28px;
+	box-shadow: 0 4px 24px #00000006;
+}
+html[data-artha-embedded='true'] #chat-container {
+	transition: none;
+}
+html[data-artha-embedded='true'] #auth-login-card {
+	margin: 12px;
+	width: calc(100% - 24px);
+	padding: 20px;
+}
+html[data-artha-appearance] .artha-c3po {
+	object-fit: contain;
+}
+@media (prefers-reduced-motion: reduce) {
+	html[data-artha-appearance] * {
+		scroll-behavior: auto !important;
+	}
+}
+
+html[data-artha-appearance] #auth-page > div:first-child {
+	background: var(--artha-bg);
+}
+html[data-artha-appearance] #auth-container {
+	color: var(--artha-text);
+}
+html[data-artha-appearance] #auth-login-card .text-2xl {
+	font-family: 'Manrope', sans-serif;
+	font-size: 22px;
+	font-weight: 700;
+	letter-spacing: -0.025em;
+	line-height: 1.4;
+}
+html[data-artha-appearance] #auth-login-card :is(#email, #name, #username) {
+	min-height: 42px;
+	padding: 10px 12px;
+	border: 1px solid var(--artha-border);
+	border-radius: 8px;
+	background: var(--artha-bg);
+	color: var(--artha-text);
+}
+html[data-artha-appearance] #auth-login-card input::placeholder {
+	color: var(--artha-muted);
+	opacity: 0.8;
+}
+html[data-artha-appearance] #auth-login-card button.rounded-full {
+	border: 1px solid var(--artha-border);
+	border-radius: 8px;
+	font-weight: 600;
+}
+html[data-artha-appearance] #artha-oidc-login,
+html[data-artha-appearance] #send-message-button:not(:disabled) {
+	background: var(--artha-primary);
+	color: var(--artha-on-primary);
+	border-color: var(--artha-primary);
+}
+html[data-artha-appearance] #artha-oidc-login:hover {
+	filter: brightness(0.95);
+}
+html[data-artha-appearance='light'] {
+	--color-gray-300: #b7cec2;
+	--color-gray-400: #8da89b;
+	--color-gray-600: #50695d;
+	--color-gray-700: #3c5549;
+	--color-gray-800: #2f483e;
+	--color-gray-850: #294238;
+	--color-gray-950: #142c23;
+}
+
+html[data-artha-appearance] .artha-auth-separator span {
+	flex-shrink: 0;
+	white-space: nowrap;
+}
+html[data-artha-appearance] .artha-auth-separator hr {
+	flex: 1;
+	min-width: 0;
+}
+html[data-artha-appearance] .artha-auth-password {
+	align-items: center;
+	border: 1px solid var(--artha-border);
+	border-radius: 8px;
+	background: var(--artha-bg);
+}
+html[data-artha-appearance] #auth-login-card .artha-auth-password input {
+	border: 0;
+	background: transparent;
+	min-width: 0;
+	min-height: 42px;
+	padding: 10px 12px;
+	color: var(--artha-text);
+}
+html[data-artha-appearance] .artha-auth-password button {
+	padding: 10px;
+}
