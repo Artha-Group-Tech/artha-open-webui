@@ -431,7 +431,7 @@
 													>{$i18n.t('Confirm Password')}</label
 												>
 												<SensitiveInput
-												outerClassName="artha-auth-password flex flex-1"
+													outerClassName="artha-auth-password flex flex-1"
 													bind:value={confirmPassword}
 													type="password"
 													id="confirm-password"

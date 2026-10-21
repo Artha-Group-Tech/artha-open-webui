@@ -146,7 +146,9 @@
 		params.stop = $settings?.params?.stop ? ($settings?.params?.stop ?? []).join(',') : null;
 	});
 
-	const applyTheme = (_theme: string) => { applyAppearance(_theme, true); };
+	const applyTheme = (_theme: string) => {
+		applyAppearance(_theme, true);
+	};
 
 	const themeChangeHandler = (_theme: string) => {
 		if ($arthaEmbedded) return;
@@ -180,7 +182,6 @@
 					<option value="light-purple">Light Purple</option>
 					<option value="deep-purple">Deep Purple</option>
 					<option value="graphite">Graphite</option>
-
 				</SettingsSelect>
 			</UserSettingRow>
 
