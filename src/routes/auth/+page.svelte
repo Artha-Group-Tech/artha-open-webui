@@ -30,7 +30,7 @@
 	import OnBoarding from '$lib/components/OnBoarding.svelte';
 	import SensitiveInput from '$lib/components/common/SensitiveInput.svelte';
 	import { redirect } from '@sveltejs/kit';
-	import chewiePicture from '../../Chewie!.png';
+	import C3POLogo from '$lib/artha/C3POLogo.svelte';
 
 	const i18n = getContext('i18n');
 
@@ -317,11 +317,7 @@
 								<div class="mb-1">
 									{#if !($config?.onboarding ?? false) && mode === 'signin'}
 										<div class="mb-5 flex justify-center">
-											<img
-												src={chewiePicture}
-												alt="Chewie"
-												class="h-28 w-28 rounded-full object-cover shadow-lg ring-1 ring-gray-200 dark:ring-gray-700"
-											/>
+											<C3POLogo className="h-28 w-28" />
 										</div>
 									{/if}
 
@@ -413,6 +409,7 @@
 												>{$i18n.t('Password')}</label
 											>
 											<SensitiveInput
+												outerClassName="artha-auth-password flex flex-1"
 												bind:value={password}
 												type="password"
 												id="password"
@@ -434,6 +431,7 @@
 													>{$i18n.t('Confirm Password')}</label
 												>
 												<SensitiveInput
+												outerClassName="artha-auth-password flex flex-1"
 													bind:value={confirmPassword}
 													type="password"
 													id="confirm-password"
@@ -511,7 +509,7 @@
 							</form>
 
 							{#if Object.keys($config?.oauth?.providers ?? {}).length > 0}
-								<div class="inline-flex items-center justify-center w-full">
+								<div class="artha-auth-separator inline-flex items-center justify-center w-full">
 									<hr class="w-32 h-px my-4 border-0 dark:bg-gray-100/10 bg-gray-700/10" />
 									{#if $config?.features.enable_login_form || $config?.features.enable_ldap || form}
 										<span
@@ -607,6 +605,7 @@
 									{/if}
 									{#if $config?.oauth?.providers?.oidc}
 										<button
+											id="artha-oidc-login"
 											class="flex justify-center items-center bg-gray-700/5 hover:bg-gray-700/10 dark:bg-gray-100/5 dark:hover:bg-gray-100/10 dark:text-gray-300 dark:hover:text-white transition w-full rounded-full font-normal text-[0.8125rem] leading-5 py-2.5"
 											on:click={() => {
 												window.location.href = `${WEBUI_BASE_URL}/oauth/oidc/login`;

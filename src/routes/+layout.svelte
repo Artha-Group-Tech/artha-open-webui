@@ -1,4 +1,6 @@
 <script>
+	import { installArthaBridge } from '$lib/artha/bridge';
+	import '$lib/artha/theme.css';
 	import { io } from 'socket.io-client';
 	import { spring } from 'svelte/motion';
 	import { createPyodideWorker } from '$lib/pyodide/createPyodideWorker';
@@ -1140,6 +1142,8 @@
 			showSyncStatsModal = true;
 		}
 	};
+
+	onMount(() => installArthaBridge());
 
 	onMount(async () => {
 		const originalFetch = window.fetch.bind(window);
