@@ -35,7 +35,13 @@ from open_webui.models.chats import (
 )
 from open_webui.models.config import Config
 from open_webui.models.folders import Folders
-from open_webui.models.shared_chats import ChatShareMode, ShareChatForm, SharedChatResponse, SharedChats, PersonalConnectorPrivacyError
+from open_webui.models.shared_chats import (
+    ChatShareMode,
+    ShareChatForm,
+    SharedChatResponse,
+    SharedChats,
+    PersonalConnectorPrivacyError,
+)
 from open_webui.models.tags import TagModel, Tags
 from open_webui.socket.main import get_event_emitter
 from open_webui.tasks import get_response_streams_by_chat_id, has_active_tasks, stop_item_tasks

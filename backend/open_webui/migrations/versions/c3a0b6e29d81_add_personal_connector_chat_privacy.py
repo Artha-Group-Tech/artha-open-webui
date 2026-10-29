@@ -1,4 +1,5 @@
 """Keep personal connector chats private independently of editable chat metadata."""
+
 from alembic import op
 import sqlalchemy as sa
 
@@ -9,7 +10,9 @@ depends_on = None
 
 
 def upgrade():
-    op.add_column('chat', sa.Column('personal_connectors_private', sa.Boolean(), nullable=False, server_default=sa.false()))
+    op.add_column(
+        'chat', sa.Column('personal_connectors_private', sa.Boolean(), nullable=False, server_default=sa.false())
+    )
 
 
 def downgrade():

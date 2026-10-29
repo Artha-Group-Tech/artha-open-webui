@@ -244,15 +244,22 @@ async def connect_mcp_server(
 
     # Resolve and attest the actual bearer per HTTP request, including refreshed OAuth tokens.
     trusted_artha = is_artha_connector_destination(mcp_server_connection.get('url', ''))
-    auth = OAuthTokenAuth(
-        get_headers, retry_on_rotation=not trusted_artha,
-        transform_headers=attest_request if trusted_artha else None,
-    ) if (
-        mcp_server_connection.get('auth_type') == 'system_oauth' or trusted_artha
-    ) else None
+    auth = (
+        OAuthTokenAuth(
+            get_headers,
+            retry_on_rotation=not trusted_artha,
+            transform_headers=attest_request if trusted_artha else None,
+        )
+        if (mcp_server_connection.get('auth_type') == 'system_oauth' or trusted_artha)
+        else None
+    )
     headers = {} if auth else await get_headers()
 
-    if not auth and mcp_server_connection.get('auth_type') in ('oauth_2.1', 'oauth_2.1_static') and not headers.get('Authorization'):
+    if (
+        not auth
+        and mcp_server_connection.get('auth_type') in ('oauth_2.1', 'oauth_2.1_static')
+        and not headers.get('Authorization')
+    ):
         raise HTTPException(status_code=401, detail='Auth required')
 
     client = MCPClient(

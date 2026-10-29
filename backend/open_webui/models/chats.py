@@ -399,11 +399,16 @@ class ChatStatsExport(BaseModel):
 
 class ChatTable:
     async def claim_personal_connector_chat(
-        self, chat_id: str, user_id: str, message_id: str | None,
-        *, user_message_id: str | None = None,
+        self,
+        chat_id: str,
+        user_id: str,
+        message_id: str | None,
+        *,
+        user_message_id: str | None = None,
     ) -> str | None:
         """Lock a private turn and return its persisted inbound user message ID."""
         from open_webui.models.shared_chats import SharedChat
+
         async with self._chat_transaction(chat_id) as (session, chat):
             if chat is None or chat.user_id != user_id or chat.share_id or chat.timer_at is not None:
                 return None

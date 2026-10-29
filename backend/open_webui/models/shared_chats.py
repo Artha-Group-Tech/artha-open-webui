@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 log = logging.getLogger(__name__)
 
+
 class PersonalConnectorPrivacyError(ValueError):
     pass
 
@@ -77,10 +78,13 @@ class SharedChatsTable:
         Returns the SharedChatModel with the share token as its id.
         """
         from open_webui.models.chats import Chats
+
         async with Chats._chat_transaction(chat_id) as (db, chat):
             if not chat or chat.user_id != user_id:
                 return None
-            if getattr(chat, 'personal_connectors_private', False) or (chat.meta or {}).get('personal_connectors_private'):
+            if getattr(chat, 'personal_connectors_private', False) or (chat.meta or {}).get(
+                'personal_connectors_private'
+            ):
                 raise PersonalConnectorPrivacyError('Chats using personal connectors cannot be shared')
 
             share_id = str(uuid.uuid4())
@@ -117,7 +121,9 @@ class SharedChatsTable:
             chat = await db.get(Chat, shared_chat.chat_id)
             if not chat:
                 return None
-            if getattr(chat, 'personal_connectors_private', False) or (chat.meta or {}).get('personal_connectors_private'):
+            if getattr(chat, 'personal_connectors_private', False) or (chat.meta or {}).get(
+                'personal_connectors_private'
+            ):
                 raise PersonalConnectorPrivacyError('Chats using personal connectors cannot be shared')
 
             shared_chat.title = chat.title
