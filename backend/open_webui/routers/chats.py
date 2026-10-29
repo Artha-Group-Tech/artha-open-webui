@@ -35,7 +35,7 @@ from open_webui.models.chats import (
 )
 from open_webui.models.config import Config
 from open_webui.models.folders import Folders
-from open_webui.models.shared_chats import ChatShareMode, ShareChatForm, SharedChatResponse, SharedChats
+from open_webui.models.shared_chats import ChatShareMode, ShareChatForm, SharedChatResponse, SharedChats, PersonalConnectorPrivacyError
 from open_webui.models.tags import TagModel, Tags
 from open_webui.socket.main import get_event_emitter
 from open_webui.tasks import get_response_streams_by_chat_id, has_active_tasks, stop_item_tasks
@@ -1849,6 +1849,7 @@ async def fork_chat_by_id(
                     message['user'] = {'id': user.id, 'name': user.name}
     meta = {
         **((chat.meta or {}) if is_owner else {}),
+        **({'personal_connectors_private': True} if chat.personal_connectors_private else {}),
         'forked_from': chat.id,
         'forked_from_message_id': source_message_id,
     }
@@ -2077,9 +2078,15 @@ async def share_chat_by_id(
     if not chat:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail=ERROR_MESSAGES.ACCESS_PROHIBITED)
 
+    if getattr(chat, 'personal_connectors_private', False) or (chat.meta or {}).get('personal_connectors_private'):
+        raise HTTPException(403, 'Chats using personal connectors cannot be shared')
+
     # If a share already exists, re-snapshot it
     if chat.share_id:
-        shared = await SharedChats.update(chat.share_id, form_data, db=db)
+        try:
+            shared = await SharedChats.update(chat.share_id, form_data, db=db)
+        except PersonalConnectorPrivacyError as exc:
+            raise HTTPException(403, str(exc)) from exc
         if shared:
             chat = await Chats.get_chat_by_id(id, db=db)
             await publish_event(
@@ -2092,7 +2099,10 @@ async def share_chat_by_id(
             return ChatResponse.model_validate(chat, from_attributes=True)
 
     # Create a new share
-    shared = await SharedChats.create(id, user.id, db=db, share_mode=form_data.share_mode if form_data else None)
+    try:
+        shared = await SharedChats.create(id, user.id, db=db, share_mode=form_data.share_mode if form_data else None)
+    except PersonalConnectorPrivacyError as exc:
+        raise HTTPException(403, str(exc)) from exc
     if not shared:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=ERROR_MESSAGES.DEFAULT())
 

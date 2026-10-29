@@ -10,6 +10,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 log = logging.getLogger(__name__)
 
+class PersonalConnectorPrivacyError(ValueError):
+    pass
+
+
 ChatShareMode = Literal['continue'] | None
 
 
@@ -72,12 +76,12 @@ class SharedChatsTable:
         Create a snapshot of the chat for link sharing.
         Returns the SharedChatModel with the share token as its id.
         """
-        async with get_async_db_context(db) as db:
-            from open_webui.models.chats import Chat
-
-            chat = await db.get(Chat, chat_id)
-            if not chat:
+        from open_webui.models.chats import Chats
+        async with Chats._chat_transaction(chat_id) as (db, chat):
+            if not chat or chat.user_id != user_id:
                 return None
+            if getattr(chat, 'personal_connectors_private', False) or (chat.meta or {}).get('personal_connectors_private'):
+                raise PersonalConnectorPrivacyError('Chats using personal connectors cannot be shared')
 
             share_id = str(uuid.uuid4())
             now = int(time.time())
@@ -92,7 +96,7 @@ class SharedChatsTable:
                 updated_at=now,
             )
             db.add(shared_chat)
-            await db.commit()
+            await db.flush()
             await db.refresh(shared_chat)
 
             return SharedChatModel.model_validate(shared_chat)
@@ -113,6 +117,8 @@ class SharedChatsTable:
             chat = await db.get(Chat, shared_chat.chat_id)
             if not chat:
                 return None
+            if getattr(chat, 'personal_connectors_private', False) or (chat.meta or {}).get('personal_connectors_private'):
+                raise PersonalConnectorPrivacyError('Chats using personal connectors cannot be shared')
 
             shared_chat.title = chat.title
             shared_chat.chat = {

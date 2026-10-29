@@ -115,6 +115,11 @@ from open_webui.utils.headers import (
 )
 from open_webui.utils.json_codec import JSONCodec
 from open_webui.utils.mcp.client import MCPClient, OAuthTokenAuth
+from open_webui.utils.mcp.connector_context import (
+    connector_context_headers,
+    is_artha_connector_destination,
+    strip_connector_headers,
+)
 from open_webui.utils.misc import is_string_allowed
 from open_webui.utils.oauth import get_system_oauth_token
 from open_webui.utils.plugin import (
@@ -193,7 +198,7 @@ async def build_tool_server_headers(
         if metadata.get('message_id'):
             headers[FORWARD_SESSION_INFO_HEADER_MESSAGE_ID] = metadata['message_id']
 
-    return headers, cookies
+    return strip_connector_headers(headers), cookies
 
 
 async def connect_mcp_server(
@@ -230,12 +235,24 @@ async def connect_mcp_server(
         headers, _ = await build_tool_server_headers(
             mcp_server_connection, request, user, server_id=server_id, metadata=metadata
         )
-        return headers
+        return strip_connector_headers(headers)
 
-    auth = OAuthTokenAuth(get_headers) if mcp_server_connection.get('auth_type') == 'system_oauth' else None
+    async def attest_request(http_request, headers):
+        return await connector_context_headers(
+            mcp_server_connection.get('url', ''), headers, user, metadata, http_request
+        )
+
+    # Resolve and attest the actual bearer per HTTP request, including refreshed OAuth tokens.
+    trusted_artha = is_artha_connector_destination(mcp_server_connection.get('url', ''))
+    auth = OAuthTokenAuth(
+        get_headers, retry_on_rotation=not trusted_artha,
+        transform_headers=attest_request if trusted_artha else None,
+    ) if (
+        mcp_server_connection.get('auth_type') == 'system_oauth' or trusted_artha
+    ) else None
     headers = {} if auth else await get_headers()
 
-    if mcp_server_connection.get('auth_type') in ('oauth_2.1', 'oauth_2.1_static') and not headers.get('Authorization'):
+    if not auth and mcp_server_connection.get('auth_type') in ('oauth_2.1', 'oauth_2.1_static') and not headers.get('Authorization'):
         raise HTTPException(status_code=401, detail='Auth required')
 
     client = MCPClient(

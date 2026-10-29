@@ -139,6 +139,7 @@ class Chat(Base):  # database table mapping for chat entity
     created_at = Column(BigInteger, index=True)  # conversation creation timestamp
     updated_at = Column(BigInteger, index=True)  # conversation modification timestamp
 
+    personal_connectors_private = Column(Boolean, nullable=False, server_default='false')
     share_id = Column(Text, unique=True, nullable=True)  # public share link token
     archived = Column(Boolean, default=False)  # hidden from main chat list
     pinned = Column(Boolean, default=False, nullable=True)
@@ -186,6 +187,7 @@ def is_internal_chat(meta: dict | None) -> bool:
 
 
 class ChatModel(BaseModel):
+    personal_connectors_private: bool = False
     model_config = ConfigDict(from_attributes=True)  # allows ORM model binding
     id: str
     user_id: str
@@ -396,6 +398,41 @@ class ChatStatsExport(BaseModel):
 
 
 class ChatTable:
+    async def claim_personal_connector_chat(
+        self, chat_id: str, user_id: str, message_id: str | None,
+        *, user_message_id: str | None = None,
+    ) -> str | None:
+        """Lock a private turn and return its persisted inbound user message ID."""
+        from open_webui.models.shared_chats import SharedChat
+        async with self._chat_transaction(chat_id) as (session, chat):
+            if chat is None or chat.user_id != user_id or chat.share_id or chat.timer_at is not None:
+                return None
+            meta = chat.meta or {}
+            if meta.get('internal') or meta.get('parent_chat_id') or meta.get('automation_id'):
+                return None
+            shared = await session.scalar(select(SharedChat.id).where(SharedChat.chat_id == chat_id).limit(1))
+            if shared:
+                return None
+            # user_message_id is authoritative when present. Never replace an invalid
+            # explicit source with some other message from the conversation.
+            source_id = user_message_id or message_id
+            visited = set()
+            for _ in range(64):
+                if not source_id or source_id in visited:
+                    return None
+                visited.add(source_id)
+                message = await session.get(ChatMessage, f'{chat_id}-{source_id}')
+                if message is None or message.user_id != user_id or message.chat_id != chat_id:
+                    return None
+                if message.role == 'user':
+                    chat.personal_connectors_private = True
+                    chat.meta = {**meta, 'personal_connectors_private': True}
+                    return source_id
+                if user_message_id or message.role not in ('assistant', 'tool'):
+                    return None
+                source_id = message.parent_id
+            return None
+
     @asynccontextmanager
     async def _chat_transaction(self, id: str):
         # Own the transaction; callers may already have a read session.
@@ -627,6 +664,7 @@ class ChatTable:
                     'chat': self._clean_null_bytes(form_data.chat),
                     'folder_id': form_data.folder_id,
                     'meta': internal_meta or {},
+                    'personal_connectors_private': bool((internal_meta or {}).get('personal_connectors_private')),
                     'timer_at': timer_at,
                     'variables': form_data.variables or {},
                     'current_message_id': self.get_current_message_id(form_data.chat),
