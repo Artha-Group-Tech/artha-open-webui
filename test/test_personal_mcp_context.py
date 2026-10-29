@@ -1,4 +1,5 @@
 """Dependency-light protocol tests; run: python3 -m unittest discover -s test -p test_personal_mcp_context.py."""
+
 import asyncio
 import ast
 from contextlib import asynccontextmanager
@@ -22,15 +23,24 @@ class ContextTests(unittest.IsolatedAsyncioTestCase):
         self.claim = AsyncMock(return_value='inbound-user-message')
         self.modules = {
             'fastapi': types.SimpleNamespace(HTTPException=type('HTTPException', (Exception,), {})),
-            'open_webui.models.chats': types.SimpleNamespace(Chats=types.SimpleNamespace(claim_personal_connector_chat=self.claim)),
-            'open_webui.utils.chat_id': types.SimpleNamespace(is_saved_chat_id=lambda value: bool(value) and not value.startswith(('temporary:', 'local:', 'channel:'))),
+            'open_webui.models.chats': types.SimpleNamespace(
+                Chats=types.SimpleNamespace(claim_personal_connector_chat=self.claim)
+            ),
+            'open_webui.utils.chat_id': types.SimpleNamespace(
+                is_saved_chat_id=lambda value: (
+                    bool(value) and not value.startswith(('temporary:', 'local:', 'channel:'))
+                )
+            ),
         }
         self.stub = patch.dict(sys.modules, self.modules)
         self.stub.start()
         spec = importlib.util.spec_from_file_location('connector_under_test', PATH)
         self.module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.module)
-        self.env = patch.dict(os.environ, {'ARTHA_CONNECTOR_MCP_URL': 'https://artha.example/mcp', 'PERSONAL_MCP_CHEWIE_CONTEXT_KEY': 'x' * 32})
+        self.env = patch.dict(
+            os.environ,
+            {'ARTHA_CONNECTOR_MCP_URL': 'https://artha.example/mcp', 'PERSONAL_MCP_CHEWIE_CONTEXT_KEY': 'x' * 32},
+        )
         self.env.start()
         self.user = types.SimpleNamespace(id='owner', email='User@Example.com')
         self.metadata = {'chat_id': 'saved', 'message_id': 'message'}
@@ -40,20 +50,45 @@ class ContextTests(unittest.IsolatedAsyncioTestCase):
         self.stub.stop()
 
     async def headers(self, url='https://artha.example/mcp', **metadata):
-        request = types.SimpleNamespace(method='POST', content=json.dumps({'method': 'tools/call', 'params': {'name': 'search_connected_tools'}}).encode())
-        return await self.module.connector_context_headers(url, {'Authorization': 'Bearer token', 'x-artha-connector-context': 'forged'}, self.user, {**self.metadata, **metadata}, request)
+        request = types.SimpleNamespace(
+            method='POST',
+            content=json.dumps({'method': 'tools/call', 'params': {'name': 'search_connected_tools'}}).encode(),
+        )
+        return await self.module.connector_context_headers(
+            url,
+            {'Authorization': 'Bearer token', 'x-artha-connector-context': 'forged'},
+            self.user,
+            {**self.metadata, **metadata},
+            request,
+        )
 
     async def test_initialize_list_and_ordinary_tools_never_claim_privacy(self):
-        for rpc in ({'method': 'initialize'}, {'method': 'tools/list'}, {'method': 'tools/call', 'params': {'name': 'dfs_search'}}, {'method': 'tools/call', 'params': {'name': 'search_connected_tools_suffix'}}, []):
+        for rpc in (
+            {'method': 'initialize'},
+            {'method': 'tools/list'},
+            {'method': 'tools/call', 'params': {'name': 'dfs_search'}},
+            {'method': 'tools/call', 'params': {'name': 'search_connected_tools_suffix'}},
+            [],
+        ):
             request = types.SimpleNamespace(method='POST', content=json.dumps(rpc).encode())
-            headers = await self.module.connector_context_headers('https://artha.example/mcp', {'Authorization': 'Bearer token', 'X-Artha-Connector-Context': 'forged'}, self.user, self.metadata, request)
+            headers = await self.module.connector_context_headers(
+                'https://artha.example/mcp',
+                {'Authorization': 'Bearer token', 'X-Artha-Connector-Context': 'forged'},
+                self.user,
+                self.metadata,
+                request,
+            )
             self.assertEqual(headers, {'Authorization': 'Bearer token'})
         self.claim.assert_not_awaited()
 
     async def test_all_four_broker_tools_are_attested(self):
         for name in self.module.BROKER_TOOLS:
-            request = types.SimpleNamespace(method='POST', content=json.dumps({'method': 'tools/call', 'params': {'name': name}}).encode())
-            headers = await self.module.connector_context_headers('https://artha.example/mcp', {'Authorization': 'Bearer token'}, self.user, self.metadata, request)
+            request = types.SimpleNamespace(
+                method='POST', content=json.dumps({'method': 'tools/call', 'params': {'name': name}}).encode()
+            )
+            headers = await self.module.connector_context_headers(
+                'https://artha.example/mcp', {'Authorization': 'Bearer token'}, self.user, self.metadata, request
+            )
             self.assertIn(self.module.HEADER, headers)
         self.assertEqual(self.claim.await_count, 4)
 
@@ -77,7 +112,9 @@ class ContextTests(unittest.IsolatedAsyncioTestCase):
         decode = lambda headers: json.loads(base64.urlsafe_b64decode(headers[self.module.HEADER].split('.')[0] + '=='))
         self.assertEqual(decode(first)['message_id'], decode(second)['message_id'])
         self.assertEqual(decode(first)['request_id'], decode(second)['request_id'])
-        self.claim.assert_awaited_with('saved', 'owner', 'assistant-regenerated', user_message_id='inbound-user-message')
+        self.claim.assert_awaited_with(
+            'saved', 'owner', 'assistant-regenerated', user_message_id='inbound-user-message'
+        )
         self.claim.return_value = None
         self.assertNotIn(self.module.HEADER, await self.headers(user_message_id='missing-user-source'))
 
@@ -89,7 +126,14 @@ class ContextTests(unittest.IsolatedAsyncioTestCase):
         self.claim.assert_not_awaited()
 
     async def test_background_group_temporary_and_missing_message_are_unattested(self):
-        for metadata in ({'internal': True}, {'automation_id': 'job'}, {'subagent_id': 'worker'}, {'chat_id': 'channel:group'}, {'chat_id': 'temporary:1'}, {'message_id': None}):
+        for metadata in (
+            {'internal': True},
+            {'automation_id': 'job'},
+            {'subagent_id': 'worker'},
+            {'chat_id': 'channel:group'},
+            {'chat_id': 'temporary:1'},
+            {'message_id': None},
+        ):
             self.assertNotIn(self.module.HEADER, await self.headers(**metadata))
         self.claim.assert_not_awaited()
 
@@ -110,27 +154,43 @@ class ContextTests(unittest.IsolatedAsyncioTestCase):
                 await self.headers()
 
 
-
 class ChatClaimTests(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
         source = PATH.parents[2] / 'models/chats.py'
         tree = ast.parse(source.read_text())
         cls = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == 'ChatTable')
-        method = next(n for n in cls.body if isinstance(n, ast.AsyncFunctionDef) and n.name == 'claim_personal_connector_chat')
+        method = next(
+            n for n in cls.body if isinstance(n, ast.AsyncFunctionDef) and n.name == 'claim_personal_connector_chat'
+        )
         query = types.SimpleNamespace()
         query.where = lambda *_: query
         query.limit = lambda *_: query
         namespace = {'select': lambda *_: query, 'ChatMessage': object()}
         exec(compile(ast.Module(body=[method], type_ignores=[]), '<saved-chat-claim>', 'exec'), namespace)
-        self.chat = types.SimpleNamespace(user_id='owner', share_id=None, timer_at=None, meta={}, personal_connectors_private=False)
+        self.chat = types.SimpleNamespace(
+            user_id='owner', share_id=None, timer_at=None, meta={}, personal_connectors_private=False
+        )
         self.rows = {}
-        self.session = types.SimpleNamespace(scalar=AsyncMock(return_value=None), get=AsyncMock(side_effect=lambda _, ident: self.rows.get(ident)))
+        self.session = types.SimpleNamespace(
+            scalar=AsyncMock(return_value=None), get=AsyncMock(side_effect=lambda _, ident: self.rows.get(ident))
+        )
+
         @asynccontextmanager
         async def transaction(_):
             yield self.session, self.chat
+
         self.table = types.SimpleNamespace(_chat_transaction=transaction)
-        self.claim = lambda message, **kwargs: namespace['claim_personal_connector_chat'](self.table, 'saved', 'owner', message, **kwargs)
-        self.stub = patch.dict(sys.modules, {'open_webui.models.shared_chats': types.SimpleNamespace(SharedChat=types.SimpleNamespace(id='id', chat_id='saved'))})
+        self.claim = lambda message, **kwargs: namespace['claim_personal_connector_chat'](
+            self.table, 'saved', 'owner', message, **kwargs
+        )
+        self.stub = patch.dict(
+            sys.modules,
+            {
+                'open_webui.models.shared_chats': types.SimpleNamespace(
+                    SharedChat=types.SimpleNamespace(id='id', chat_id='saved')
+                )
+            },
+        )
         self.stub.start()
 
     async def asyncTearDown(self):
