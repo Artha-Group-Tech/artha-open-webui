@@ -35,7 +35,7 @@ def _build_httpx_client(headers=None, timeout=None, auth=None, verify=True):
     after construction does not affect the underlying transport's SSL context.
     """
     kwargs = {
-        'follow_redirects': True,
+        'follow_redirects': getattr(auth, 'retry_on_rotation', True),
         'verify': verify,
     }
     if timeout is not None:
@@ -67,18 +67,25 @@ class OAuthTokenAuth(httpx.Auth):
 
     requires_request_body = True
 
-    def __init__(self, get_headers):
+    def __init__(self, get_headers, retry_on_rotation=True, transform_headers=None):
         self.get_headers = get_headers
+        self.retry_on_rotation = retry_on_rotation
+        self.transform_headers = transform_headers
 
     async def async_auth_flow(self, request):
-        headers = httpx.Headers(await self.get_headers())
+        headers = await self.get_headers()
+        if self.transform_headers:
+            headers = await self.transform_headers(request, headers)
+        headers = httpx.Headers(headers)
         authorization = headers.get('Authorization')
         if not authorization:
             raise httpx.RequestError('No OAuth access token available', request=request)
+        # Drop any stale or configured attestation before applying freshly checked headers.
+        request.headers.pop('X-Artha-Connector-Context', None)
         request.headers.update(headers)
         response = yield request
 
-        if response.status_code == 401:
+        if self.retry_on_rotation and response.status_code == 401:
             headers = httpx.Headers(await self.get_headers())
             if headers.get('Authorization') and headers['Authorization'] != authorization:
                 request.headers.update(headers)
