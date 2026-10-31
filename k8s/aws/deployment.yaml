@@ -175,6 +175,13 @@ spec:
               value: "${WEBUI_URL}"
             - name: CORS_ALLOW_ORIGIN
               value: "${WEBUI_URL}"
+            - name: ARTHA_CONNECTOR_MCP_URL
+              value: "${ARTHA_CONNECTOR_MCP_URL}"
+            - name: PERSONAL_MCP_CHEWIE_CONTEXT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: open-webui-secrets
+                  key: PERSONAL_MCP_CHEWIE_CONTEXT_KEY
             - name: ENABLE_OLLAMA_API
               value: "true"
             - name: ENABLE_OPENAI_API
