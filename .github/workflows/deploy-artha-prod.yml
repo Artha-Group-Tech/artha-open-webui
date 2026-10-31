@@ -28,6 +28,7 @@ env:
   APP_ENVIRONMENT: production
   APP_HOST: chewie.artha.vc
   WEBUI_URL: https://chewie.artha.vc
+  ARTHA_CONNECTOR_MCP_URL: https://pitch.artha.vc/mcp
   ACM_CERT_ARN: arn:aws:acm:ap-south-1:762233754445:certificate/a191d801-908d-495c-bbb9-fadce239d6ab
   MODEL_GATEWAY_IRSA_ROLE_ARN: arn:aws:iam::762233754445:role/artha-prod-aps1-model-gateway-ai-irsa-role
   OPENID_PROVIDER_URL: https://auth.artha.vc/auth/realms/artha/.well-known/openid-configuration
@@ -139,11 +140,12 @@ jobs:
           OAUTH_CLIENT_SECRET: ${{ secrets.OPEN_WEBUI_OAUTH_CLIENT_SECRET }}
           DATABASE_URL: ${{ secrets.OPEN_WEBUI_DATABASE_URL }}
           LITELLM_MASTER_KEY: ${{ secrets.OPEN_WEBUI_LITELLM_MASTER_KEY }}
+          PERSONAL_MCP_CHEWIE_CONTEXT_KEY: ${{ secrets.PERSONAL_MCP_CHEWIE_CONTEXT_KEY }}
           DATABASE_SCHEMA: open_webui
         run: |
           set -euo pipefail
           missing=()
-          for name in WEBUI_SECRET_KEY OAUTH_CLIENT_SECRET DATABASE_URL LITELLM_MASTER_KEY; do
+          for name in WEBUI_SECRET_KEY OAUTH_CLIENT_SECRET DATABASE_URL LITELLM_MASTER_KEY PERSONAL_MCP_CHEWIE_CONTEXT_KEY; do
             if [ -z "${!name:-}" ]; then
               missing+=("$name")
             fi
@@ -153,6 +155,13 @@ jobs:
             exit 1
           fi
 
+          python3 - <<'PY'
+          import os
+
+          if len(os.environ["PERSONAL_MCP_CHEWIE_CONTEXT_KEY"].encode("utf-8")) < 32:
+              raise SystemExit("PERSONAL_MCP_CHEWIE_CONTEXT_KEY must be at least 32 bytes")
+          PY
+
           kubectl create secret generic open-webui-secrets \
             --namespace "$K8S_NAMESPACE" \
             --from-literal=WEBUI_SECRET_KEY="$WEBUI_SECRET_KEY" \
@@ -160,6 +169,7 @@ jobs:
             --from-literal=DATABASE_URL="$DATABASE_URL" \
             --from-literal=DATABASE_SCHEMA="$DATABASE_SCHEMA" \
             --from-literal=LITELLM_MASTER_KEY="$LITELLM_MASTER_KEY" \
+            --from-literal=PERSONAL_MCP_CHEWIE_CONTEXT_KEY="$PERSONAL_MCP_CHEWIE_CONTEXT_KEY" \
             --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Render and apply K8s manifests

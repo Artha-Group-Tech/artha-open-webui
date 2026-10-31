@@ -6,6 +6,11 @@ Configure the same key in the DFS backend. Keep this key in host-only environmen
 configuration, never in tool connection headers, assistant prompts, or browser settings.
 Run the normal Alembic migrations before starting this version.
 
+The Artha production deployment injects the exact MCP URL and reads the key from
+the `production` GitHub Environment secret `PERSONAL_MCP_CHEWIE_CONTEXT_KEY`.
+Configure the same high-entropy secret in the DFS production environment before
+deploying either service; both production workflows reject missing or undersized keys.
+
 Only the exact configured destination receives `X-Artha-Connector-Context`. Each
 outgoing HTTP request resolves the current OAuth bearer. Only `tools/call` requests
 for the four personal connector broker tools are attested; initialization, discovery,
