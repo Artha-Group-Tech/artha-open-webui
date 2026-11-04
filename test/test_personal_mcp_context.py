@@ -104,8 +104,14 @@ class ContextTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.claim.await_count, len(self.module.OFFICE365_TOOLS))
 
     async def test_office365_does_not_attest_ineligible_or_unowned_chats(self):
-        for metadata in ({'internal': True}, {'automation_id': 'job'}, {'parent_chat_id': 'parent'},
-                         {'subagent_id': 'worker'}, {'chat_id': 'channel:group'}, {'chat_id': 'temporary:1'}):
+        for metadata in (
+            {'internal': True},
+            {'automation_id': 'job'},
+            {'parent_chat_id': 'parent'},
+            {'subagent_id': 'worker'},
+            {'chat_id': 'channel:group'},
+            {'chat_id': 'temporary:1'},
+        ):
             self.assertNotIn(self.module.HEADER, await self.headers(tool_name='search_emails', **metadata))
         self.claim.assert_not_awaited()
         self.claim.return_value = None

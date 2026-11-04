@@ -20,12 +20,24 @@ BROKER_TOOLS = frozenset(
 )
 OFFICE365_TOOLS = frozenset(
     {
-        'list_office365_accounts', 'list_calendar_events', 'get_calendar_event',
-        'create_calendar_event', 'update_calendar_event', 'cancel_calendar_event',
-        'list_meeting_transcripts', 'read_meeting_transcript',
-        'search_emails', 'read_email', 'mark_emails_read', 'save_email_draft', 'send_email',
-        'prepare_outlook_workflow', 'execute_outlook_workflow', 'list_outlook_workflows',
-        'get_outlook_workflow_status', 'get_office365_operation_status',
+        'list_office365_accounts',
+        'list_calendar_events',
+        'get_calendar_event',
+        'create_calendar_event',
+        'update_calendar_event',
+        'cancel_calendar_event',
+        'list_meeting_transcripts',
+        'read_meeting_transcript',
+        'search_emails',
+        'read_email',
+        'mark_emails_read',
+        'save_email_draft',
+        'send_email',
+        'prepare_outlook_workflow',
+        'execute_outlook_workflow',
+        'list_outlook_workflows',
+        'get_outlook_workflow_status',
+        'get_office365_operation_status',
     }
 )
 
