@@ -49,10 +49,10 @@ class ContextTests(unittest.IsolatedAsyncioTestCase):
         self.env.stop()
         self.stub.stop()
 
-    async def headers(self, url='https://artha.example/mcp', **metadata):
+    async def headers(self, url='https://artha.example/mcp', tool_name='search_connected_tools', **metadata):
         request = types.SimpleNamespace(
             method='POST',
-            content=json.dumps({'method': 'tools/call', 'params': {'name': 'search_connected_tools'}}).encode(),
+            content=json.dumps({'method': 'tools/call', 'params': {'name': tool_name}}).encode(),
         )
         return await self.module.connector_context_headers(
             url,
@@ -91,6 +91,25 @@ class ContextTests(unittest.IsolatedAsyncioTestCase):
             )
             self.assertIn(self.module.HEADER, headers)
         self.assertEqual(self.claim.await_count, 4)
+
+    async def test_office365_tools_use_the_same_private_chat_claim(self):
+        for name in self.module.OFFICE365_TOOLS:
+            headers = await self.headers(tool_name=name)
+            self.assertIn(self.module.HEADER, headers)
+            encoded = headers[self.module.HEADER].split('.')[0]
+            value = json.loads(base64.urlsafe_b64decode(encoded + '=' * (-len(encoded) % 4)))
+            self.assertEqual(value['channel'], 'chewie')
+            self.assertEqual(value['chat_kind'], 'private')
+            self.assertEqual(value['user_id'], 'user@example.com')
+        self.assertEqual(self.claim.await_count, len(self.module.OFFICE365_TOOLS))
+
+    async def test_office365_does_not_attest_ineligible_or_unowned_chats(self):
+        for metadata in ({'internal': True}, {'automation_id': 'job'}, {'parent_chat_id': 'parent'},
+                         {'subagent_id': 'worker'}, {'chat_id': 'channel:group'}, {'chat_id': 'temporary:1'}):
+            self.assertNotIn(self.module.HEADER, await self.headers(tool_name='search_emails', **metadata))
+        self.claim.assert_not_awaited()
+        self.claim.return_value = None
+        self.assertNotIn(self.module.HEADER, await self.headers(tool_name='read_email'))
 
     async def test_signature_binds_actual_bearer_and_authenticated_owner(self):
         headers = await self.headers()
