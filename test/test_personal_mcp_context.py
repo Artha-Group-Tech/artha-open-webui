@@ -178,6 +178,20 @@ class ContextTests(unittest.IsolatedAsyncioTestCase):
             with self.assertRaises(self.modules['fastapi'].HTTPException):
                 await self.headers()
 
+    async def test_portfolio_tools_lock_an_owned_private_conversation(self):
+        for name in self.module.PORTFOLIO_DOCUMENT_TOOLS:
+            headers = await self.headers(tool_name=name)
+            self.assertIn(self.module.HEADER, headers)
+        self.assertEqual(self.claim.await_count, 4)
+
+    async def test_portfolio_tools_do_not_attest_shared_or_background_conversations(self):
+        for name in self.module.PORTFOLIO_DOCUMENT_TOOLS:
+            self.assertNotIn(self.module.HEADER, await self.headers(tool_name=name, automation_id='job'))
+            self.assertNotIn(self.module.HEADER, await self.headers(tool_name=name, chat_id='channel:group'))
+        self.claim.assert_not_awaited()
+        self.claim.return_value = None
+        self.assertNotIn(self.module.HEADER, await self.headers(tool_name='search_portfolio_documents'))
+
 
 class ChatClaimTests(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
