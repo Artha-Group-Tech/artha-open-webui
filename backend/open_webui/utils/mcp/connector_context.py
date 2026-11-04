@@ -41,6 +41,15 @@ OFFICE365_TOOLS = frozenset(
     }
 )
 
+PORTFOLIO_DOCUMENT_TOOLS = frozenset(
+    {
+        'search_portfolio_documents',
+        'get_portfolio_document_excerpt',
+        'compare_portfolio_documents',
+        'get_portfolio_document_status',
+    }
+)
+
 
 def is_personal_broker_request(request):
     if request is None or request.method != 'POST':
@@ -51,7 +60,7 @@ def is_personal_broker_request(request):
             isinstance(rpc, dict)
             and rpc.get('method') == 'tools/call'
             and isinstance(rpc.get('params'), dict)
-            and rpc['params'].get('name') in BROKER_TOOLS | OFFICE365_TOOLS
+            and rpc['params'].get('name') in BROKER_TOOLS | OFFICE365_TOOLS | PORTFOLIO_DOCUMENT_TOOLS
         )
     except (ValueError, TypeError, AttributeError):
         return False
