@@ -1,4 +1,4 @@
-"""Host-only attestation for personal DFS connectors. Never sourced from model arguments."""
+"""Host-only attestation for private DFS tools. Never sourced from model arguments."""
 
 import base64
 import hashlib
@@ -18,6 +18,16 @@ BROKER_TOOLS = frozenset(
         'get_connected_tool_operation',
     }
 )
+OFFICE365_TOOLS = frozenset(
+    {
+        'list_office365_accounts', 'list_calendar_events', 'get_calendar_event',
+        'create_calendar_event', 'update_calendar_event', 'cancel_calendar_event',
+        'list_meeting_transcripts', 'read_meeting_transcript',
+        'search_emails', 'read_email', 'mark_emails_read', 'save_email_draft', 'send_email',
+        'prepare_outlook_workflow', 'execute_outlook_workflow', 'list_outlook_workflows',
+        'get_outlook_workflow_status', 'get_office365_operation_status',
+    }
+)
 
 
 def is_personal_broker_request(request):
@@ -29,7 +39,7 @@ def is_personal_broker_request(request):
             isinstance(rpc, dict)
             and rpc.get('method') == 'tools/call'
             and isinstance(rpc.get('params'), dict)
-            and rpc['params'].get('name') in BROKER_TOOLS
+            and rpc['params'].get('name') in BROKER_TOOLS | OFFICE365_TOOLS
         )
     except (ValueError, TypeError, AttributeError):
         return False
@@ -50,7 +60,7 @@ async def connector_context_headers(url, headers, user, metadata, request=None):
     if not is_artha_connector_destination(url) or not is_personal_broker_request(request):
         return headers
     key = os.environ.get('PERSONAL_MCP_CHEWIE_CONTEXT_KEY', '')
-    # An unconfigured deployment preserves ordinary Artha and Office365 behavior.
+    # Unconfigured deployments do not attest private tool requests.
     if not key:
         return headers
     if len(key.encode()) < 32:
